@@ -1,0 +1,22 @@
+{
+  "name": "threejsdev",
+  "version": "1.0.0",
+  "description": "Three js custom editor",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@gitlab.com/joegeorge/threejsdev.git"
+  },
+  "author": "Joe George",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://gitlab.com/joegeorge/threejsdev/issues"
+  },
+  "homepage": "https://gitlab.com/joegeorge/threejsdev#readme",
+  "dependencies": {
+    "express": "^4.17.1"
+  }
+}
