@@ -73,6 +73,7 @@ class LightThreeEditor {
 
         });
 
+        
         this.enableHotkeys()
         this.viewRender()
         this.itemsLoaderScreen(false)
