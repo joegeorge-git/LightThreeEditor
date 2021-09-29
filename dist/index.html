@@ -16,18 +16,38 @@
 <body>
     <div class="container mt-5">
         <div class="row">
-            <a href="#" class="btn-edit">Edit Scene </a>
-            <a href="#" class="btn-export">Export </a>
+            <div class="sec-title">
+                Your 3D assets
+            </div>
+            <div class="item-list">
+                
+            </div>
         </div>
     </div>
     <div class="container">
         <div class="row">
             <div class="three-editor">
+                <div class="loader"><div></div></div>
                 <div class="scene-container"></div>
             </div>
         </div>
     </div>
-    <script type="module" src="./assets/js/main.js"></script>
+    <script type="module">
+        import {LightThreeEditor} from '/assets/js/main.js'
+        var threeEditor = new LightThreeEditor({
+            container:".scene-container",
+            list:[
+                {thumb:"/assets/models/Cheeseburger.jpg", file:"/assets/models/Cheeseburger.glb" , name:"Cheeseburger"},
+                {thumb:"/assets/models/Emoji With Glasses.jpg", file:"/assets/models/Emoji With Glasses.glb",name:"Emoji With Glasses"},
+                {thumb:"/assets/models/Red sea urchin.jpg", file:"/assets/models/Red sea urchin.glb" , name:"Red sea urchin" },
+                {thumb:"/assets/models/Small troll.jpg", file:"/assets/models/Small troll.glb" ,name:"Small troll"},
+                {thumb:"/assets/models/Unicorn.jpg", file:"/assets/models/Unicorn.glb" ,name:"Unicorn"}
+            ],
+            listContainer:'.item-list'
+        })
+        
+        
+    </script>
 </body>
 
 </html>
