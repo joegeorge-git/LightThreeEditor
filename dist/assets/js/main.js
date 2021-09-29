@@ -6,9 +6,10 @@ import { GLTFExporter } from './GLTFExporter.js';
 import { TransformControls } from './TransformControls.js';
 import { DragControls } from './DragControls.js';
 
-var renderer, scene, camera, manager, controls,group , orbit , control;
+var cameraPersp, cameraOrtho, currentCamera ,manager // manager, controls,group , orbit , control;
+let scene, renderer, control, orbit;
 const mouse = new THREE.Vector2(),
-raycaster = new THREE.Raycaster();
+    raycaster = new THREE.Raycaster();
 let enableSelection = false;
 
 class LightThreeEditor {
@@ -19,6 +20,7 @@ class LightThreeEditor {
     exposure = 1.0;
     container = ''
     assetLoadUrl = ''
+    aspect;
     constructor(options) {
         this.container = document.querySelector(options.container);
         this.boxWidth = this.container.offsetWidth;
@@ -32,15 +34,15 @@ class LightThreeEditor {
         // scene
         scene = new THREE.Scene();
         scene.background = new THREE.Color('#f0f0f0');
-
+        this.aspect = this.boxWidth / this.boxHeight;
         this.loadCam()
 
-        controls = new OrbitControls(camera, renderer.domElement);
-        controls.addEventListener('change', this.viewRender);
-        controls.enableZoom = true;
-        controls.enablePan = false;
-        controls.enableRotate = true
-        controls.enableDamping = true;
+        // controls = new OrbitControls(camera, renderer.domElement);
+        // controls.addEventListener('change', this.viewRender);
+        // controls.enableZoom = true;
+        // controls.enablePan = false;
+        // controls.enableRotate = true
+        // controls.enableDamping = true;
 
         scene.add(new THREE.AmbientLight(0xf0f0f0));
 
@@ -53,20 +55,23 @@ class LightThreeEditor {
         manager = new THREE.LoadingManager(this.viewRender);
         const axesHelper = new THREE.AxesHelper(2);
         scene.add(axesHelper);
-        
-        group = new THREE.Group();
-		scene.add( group );
 
-        orbit = new OrbitControls( camera, renderer.domElement );
+        // group = new THREE.Group();
+        // scene.add(group);
+
+        orbit = new OrbitControls(currentCamera, renderer.domElement);
         orbit.update();
-        orbit.addEventListener( 'change', this.viewRender );
+        
+        orbit.addEventListener('change', this.viewRender);
 
-        control = new TransformControls( camera, renderer.domElement );
-        control.addEventListener( 'change', this.viewRender );
+        control = new TransformControls(currentCamera, renderer.domElement);
+        control.addEventListener('change', this.viewRender);
 
-        control.addEventListener( 'dragging-changed', function ( event ) {
-            orbit.enabled = ! event.value;
-        } );
+        control.addEventListener('dragging-changed', function (event) {
+
+            orbit.enabled = !event.value;
+
+        });
 
         this.enableHotkeys()
         this.viewRender()
@@ -83,9 +88,16 @@ class LightThreeEditor {
         renderer.outputEncoding = THREE.sRGBEncoding;
     }
     loadCam() {
-        camera = new THREE.PerspectiveCamera(50, this.boxWidth / this.boxHeight, 0.01, 1000)
-        camera.position.set(0, 1.5, 3);
-        camera.lookAt(new THREE.Vector3());
+        cameraPersp = new THREE.PerspectiveCamera(50,  this.aspect, 0.01, 1000);
+        cameraOrtho = new THREE.OrthographicCamera(- 600 *  this.aspect, 600 *  this.aspect, 600, - 600, 0.01, 30000);
+        currentCamera = cameraPersp;
+
+        currentCamera.position.set(0, 1.5, 3);
+        currentCamera.lookAt(0, 200, 0);
+
+        // camera = new THREE.PerspectiveCamera(50, this.boxWidth / this.boxHeight, 0.01, 1000)
+        // camera.position.set(0, 1.5, 3);
+        // camera.lookAt(new THREE.Vector3());
     }
 
     loadAssetsToDom(list, domElement) {
@@ -109,57 +121,57 @@ class LightThreeEditor {
         let self = this
         self.itemsLoaderScreen(true)
         new GLTFLoader(manager).load(url, function (gltf) {
-           var mesh = gltf.scene.children[0];
+            var mesh = gltf.scene.children[0];
             mesh.position.x = 0;
             mesh.position.y = 0;
             scene.add(mesh);
             self.objects.push(mesh);
-            
+
             console.log('loaded')
-           
-            control.attach( mesh );
-            scene.add( control );
-           
+
+            control.attach(mesh);
+            scene.add(control);
+
             self.itemsLoaderScreen(false)
         });
     }
-    enableHotkeys(){
-        window.addEventListener( 'keydown', function ( event ) {
+    enableHotkeys() {
+        window.addEventListener('keydown', function (event) {
 
-            switch ( event.keyCode ) {
+            switch (event.keyCode) {
 
                 case 81: // Q
-                    control.setSpace( control.space === 'local' ? 'world' : 'local' );
+                    control.setSpace(control.space === 'local' ? 'world' : 'local');
                     break;
 
                 case 16: // Shift
-                    control.setTranslationSnap( 100 );
-                    control.setRotationSnap( THREE.MathUtils.degToRad( 15 ) );
-                    control.setScaleSnap( 0.25 );
+                    control.setTranslationSnap(100);
+                    control.setRotationSnap(THREE.MathUtils.degToRad(15));
+                    control.setScaleSnap(0.25);
                     break;
 
                 case 87: // W
-                    control.setMode( 'translate' );
+                    control.setMode('translate');
                     break;
 
                 case 69: // E
-                    control.setMode( 'rotate' );
+                    control.setMode('rotate');
                     break;
 
                 case 82: // R
-                    control.setMode( 'scale' );
+                    control.setMode('scale');
                     break;
 
                 case 67: // C
                     const position = currentCamera.position.clone();
 
                     currentCamera = currentCamera.isPerspectiveCamera ? cameraOrtho : cameraPersp;
-                    currentCamera.position.copy( position );
+                    currentCamera.position.copy(position);
 
                     orbit.object = currentCamera;
                     control.camera = currentCamera;
 
-                    currentCamera.lookAt( orbit.target.x, orbit.target.y, orbit.target.z );
+                    currentCamera.lookAt(orbit.target.x, orbit.target.y, orbit.target.z);
                     onWindowResize();
                     break;
 
@@ -178,55 +190,55 @@ class LightThreeEditor {
 
                 case 187:
                 case 107: // +, =, num+
-                    control.setSize( control.size + 0.1 );
+                    control.setSize(control.size + 0.1);
                     break;
 
                 case 189:
                 case 109: // -, _, num-
-                    control.setSize( Math.max( control.size - 0.1, 0.1 ) );
+                    control.setSize(Math.max(control.size - 0.1, 0.1));
                     break;
 
                 case 88: // X
-                    control.showX = ! control.showX;
+                    control.showX = !control.showX;
                     break;
 
                 case 89: // Y
-                    control.showY = ! control.showY;
+                    control.showY = !control.showY;
                     break;
 
                 case 90: // Z
-                    control.showZ = ! control.showZ;
+                    control.showZ = !control.showZ;
                     break;
 
                 case 32: // Spacebar
-                    control.enabled = ! control.enabled;
+                    control.enabled = !control.enabled;
                     break;
 
             }
 
-        } );
+        });
 
-        window.addEventListener( 'keyup', function ( event ) {
+        window.addEventListener('keyup', function (event) {
 
-            switch ( event.keyCode ) {
+            switch (event.keyCode) {
 
                 case 16: // Shift
-                    control.setTranslationSnap( null );
-                    control.setRotationSnap( null );
-                    control.setScaleSnap( null );
+                    control.setTranslationSnap(null);
+                    control.setRotationSnap(null);
+                    control.setScaleSnap(null);
                     break;
 
             }
 
-        } );
+        });
     }
     viewRender() {
-        renderer.render(scene, camera);
+        renderer.render(scene, currentCamera );
     }
-    itemsLoaderScreen(stat){
-    var loader = document.querySelector('.loader')
-       if(stat) loader.hidden=false
-       else loader.hidden=true
+    itemsLoaderScreen(stat) {
+        var loader = document.querySelector('.loader')
+        if (stat) loader.hidden = false
+        else loader.hidden = true
     }
 
 }
