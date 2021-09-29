@@ -6,8 +6,9 @@ import { GLTFExporter } from './GLTFExporter.js';
 import { TransformControls } from './TransformControls.js';
 import { DragControls } from './DragControls.js';
 
-var cameraPersp, cameraOrtho, currentCamera ,manager // manager, controls,group , orbit , control;
+var cameraPersp, cameraOrtho, currentCamera, manager // manager, controls,group , orbit , control;
 let scene, renderer, control, orbit;
+
 const mouse = new THREE.Vector2(),
     raycaster = new THREE.Raycaster();
 let enableSelection = false;
@@ -61,7 +62,7 @@ class LightThreeEditor {
 
         orbit = new OrbitControls(currentCamera, renderer.domElement);
         orbit.update();
-        
+
         orbit.addEventListener('change', this.viewRender);
 
         control = new TransformControls(currentCamera, renderer.domElement);
@@ -73,10 +74,18 @@ class LightThreeEditor {
 
         });
 
-        
+
         this.enableHotkeys()
         this.viewRender()
         this.itemsLoaderScreen(false)
+        let self= this
+        document.querySelector('.btn-export').addEventListener('click', function (event) {
+            console.log('clicked')
+            self.viewRender()
+            self.itemsLoaderScreen(true)
+            self.exportGLTF(scene)
+        })
+
     }
     loadRenderer() {
         renderer = new THREE.WebGLRenderer({ antialias: true });
@@ -89,8 +98,8 @@ class LightThreeEditor {
         renderer.outputEncoding = THREE.sRGBEncoding;
     }
     loadCam() {
-        cameraPersp = new THREE.PerspectiveCamera(50,  this.aspect, 0.01, 1000);
-        cameraOrtho = new THREE.OrthographicCamera(- 600 *  this.aspect, 600 *  this.aspect, 600, - 600, 0.01, 30000);
+        cameraPersp = new THREE.PerspectiveCamera(50, this.aspect, 0.01, 1000);
+        cameraOrtho = new THREE.OrthographicCamera(- 600 * this.aspect, 600 * this.aspect, 600, - 600, 0.01, 30000);
         currentCamera = cameraPersp;
 
         currentCamera.position.set(0, 1.5, 3);
@@ -234,13 +243,59 @@ class LightThreeEditor {
         });
     }
     viewRender() {
-        renderer.render(scene, currentCamera );
+        renderer.render(scene, currentCamera);
     }
     itemsLoaderScreen(stat) {
         var loader = document.querySelector('.loader')
         if (stat) loader.hidden = false
         else loader.hidden = true
     }
-
+    exportGLTF(input) {
+        var gltfExporter = new GLTFExporter();
+        var options = {
+            trs: true,
+            onlyVisible: true,
+            truncateDrawRange: true,
+            binary: true,
+            maxTextureSize: 4096 //|| Infinity // To prevent NaN value
+        };
+        var self= this
+        gltfExporter.parse(input, function (result) {
+            self.itemsLoaderScreen(false)
+            if (result instanceof ArrayBuffer) {
+                saveArrayBuffer(result, 'scene.glb');
+            } else {
+                const output = JSON.stringify(result, null, 2);
+                console.log(output);
+               
+                saveString(output, 'scene.gltf');
+            }
+        }, options);
+    
+    }
 }
+
+const link = document.createElement('a');
+link.style.display = 'none';
+document.body.appendChild(link);
+
+    function saveArrayBuffer(buffer, filename) {
+
+        save(new Blob([buffer], { type: 'application/octet-stream' }), filename);
+
+    }
+    function save(blob, filename) {
+
+        link.href = URL.createObjectURL(blob);
+        link.download = filename;
+        link.click();
+
+        // URL.revokeObjectURL( url ); breaks Firefox...
+
+    }
+    function saveString(text, filename) {
+
+        save(new Blob([text], { type: 'text/plain' }), filename);
+
+    }
 export { LightThreeEditor }
