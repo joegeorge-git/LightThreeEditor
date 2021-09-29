@@ -19,14 +19,28 @@
             <div class="sec-title">
                 Your 3D assets
             </div>
-            <div class="item-list">
-                
-            </div>
         </div>
     </div>
     <div class="container">
         <div class="row">
+            <div class="assetsdropdown">
+                <button onclick="myFunction()" class="dropbtn">My 3D library</button>
+                <div id="myDropdown" class="dropdown-content">
+                    <h4>Click item to Select</h4>
+                    <div class="item-list">
+            
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
             <div class="three-editor">
+                <div id="info">
+                    "W" translate | "E" rotate | "R" scale | "+/-" adjust size<br />
+                    "Q" toggle world/local space |  "Shift" snap to grid<br />
+                    "X" toggle X | "Y" toggle Y | "Z" toggle Z | "Spacebar" toggle enabled<br />
+                    "C" toggle camera | "V" random zoom
+                </div>
                 <div class="loader"><div></div></div>
                 <div class="scene-container"></div>
             </div>
@@ -47,6 +61,25 @@
         })
         
         
+    </script>
+    <script>
+        function myFunction() {
+  document.getElementById("myDropdown").classList.toggle("show");
+}
+
+// Close the dropdown menu if the user clicks outside of it
+window.onclick = function(event) {
+  if (!event.target.matches('.dropbtn')) {
+    var dropdowns = document.getElementsByClassName("dropdown-content");
+    var i;
+    for (i = 0; i < dropdowns.length; i++) {
+      var openDropdown = dropdowns[i];
+      if (openDropdown.classList.contains('show')) {
+        openDropdown.classList.remove('show');
+      }
+    }
+  }
+}
     </script>
 </body>
 
