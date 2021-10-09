@@ -17,30 +17,37 @@
     <div class="container mt-5">
         <div class="row">
             <div class="sec-title">
-                Your 3D assets
+                Manage 3D assets
             </div>
         </div>
     </div>
     <div class="container">
-        <div class="row">
+        <!-- <div class="row">
             <div class="assetsdropdown">
-                <button onclick="myFunction()" class="dropbtn">My 3D library</button>
+                <button class="dropbtn" data-toggle=".dropdown-content">My 3D library</button>
                 <button onclick="" class="dropbtn btn-export">Export scene</button>
-                <div id="myDropdown" class="dropdown-content">
-                    <h4>Click item to Select</h4>
-                    <div class="item-list">
-            
-                    </div>
-                </div>
+               
             </div>
-        </div>
+        </div>-->
+        <!-- <div id="infos">
+            "W" translate | "E" rotate | "R" scale | "+/-" adjust size<br />
+            "Q" toggle world/local space | "Shift" snap to grid<br />
+            "X" toggle X | "Y" toggle Y | "Z" toggle Z | "Spacebar" toggle enabled<br />
+            "C" toggle camera | "V" random zoom
+        </div>  -->
         <div class="row">
             <div class="three-editor">
-                <div id="info">
-                    "W" translate | "E" rotate | "R" scale | "+/-" adjust size<br />
-                    "Q" toggle world/local space |  "Shift" snap to grid<br />
-                    "X" toggle X | "Y" toggle Y | "Z" toggle Z | "Spacebar" toggle enabled<br />
-                    "C" toggle camera | "V" random zoom
+                <div class="toolbar">
+                    <div data-title="My 3D library"><i data-action="drower-files-toggle" class="icon-folder-open-o"></i></div>
+                    <div data-title="Translate"><i data-action="move" class="icon-move"></i></div>
+                    <div data-title="Rotate"><i data-action="rotate" class="icon-rotate"></i></div>
+                    <div data-title="Scale"><i data-action="resize" class="icon-resize-down"></i></div>
+                    <div data-title="Save Scene"><i data-action="saveScene" class="icon-floppy-o"></i></div>
+                    <div class="pull-right" data-title="Assets in Scene" data-title-right> <i data-action="scene-layers" class="icon-list-ul"></i></div>
+                </div>
+                <div class="item-list"></div>
+                <div class="scene-layers">
+                    <h4>Scene Object List </h4>
                 </div>
                 <div class="loader"><div></div></div>
                 <div class="scene-container"></div>
@@ -48,39 +55,21 @@
         </div>
     </div>
     <script type="module">
-        import {LightThreeEditor} from '/assets/js/main.js'
+        import { LightThreeEditor } from '/assets/js/main.js'
         var threeEditor = new LightThreeEditor({
-            container:".scene-container",
-            list:[
-                {thumb:"/assets/models/Cheeseburger.jpg", file:"/assets/models/Cheeseburger.glb" , name:"Cheeseburger"},
-                {thumb:"/assets/models/Emoji With Glasses.jpg", file:"/assets/models/Emoji With Glasses.glb",name:"Emoji With Glasses"},
-                {thumb:"/assets/models/Red sea urchin.jpg", file:"/assets/models/Red sea urchin.glb" , name:"Red sea urchin" },
-                {thumb:"/assets/models/Small troll.jpg", file:"/assets/models/Small troll.glb" ,name:"Small troll"},
-                {thumb:"/assets/models/Unicorn.jpg", file:"/assets/models/Unicorn.glb" ,name:"Unicorn"}
+            container: ".scene-container",
+            list: [
+                { thumb: "/assets/models/Cheeseburger.jpg", file: "/assets/models/Cheeseburger.glb", name: "Cheeseburger" },
+                { thumb: "/assets/models/Emoji With Glasses.jpg", file: "/assets/models/Emoji With Glasses.glb", name: "Emoji With Glasses" },
+                { thumb: "/assets/models/Red sea urchin.jpg", file: "/assets/models/Red sea urchin.glb", name: "Red sea urchin" },
+                { thumb: "/assets/models/Small troll.jpg", file: "/assets/models/Small troll.glb", name: "Small troll" },
+                { thumb: "/assets/models/Unicorn.jpg", file: "/assets/models/Unicorn.glb", name: "Unicorn" }
             ],
-            listContainer:'.item-list'
+            listContainer: '.item-list',
+            toolbarContainer: ".toolbar"
         })
-        
-        
-    </script>
-    <script>
-        function myFunction() {
-  document.getElementById("myDropdown").classList.toggle("show");
-}
-
-// Close the dropdown menu if the user clicks outside of it
-window.onclick = function(event) {
-  if (!event.target.matches('.dropbtn')) {
-    var dropdowns = document.getElementsByClassName("dropdown-content");
-    var i;
-    for (i = 0; i < dropdowns.length; i++) {
-      var openDropdown = dropdowns[i];
-      if (openDropdown.classList.contains('show')) {
-        openDropdown.classList.remove('show');
-      }
-    }
-  }
-}
+        var saved = JSON.parse(localStorage.getItem("savedScene") )
+        if(saved) threeEditor.loadSavedScene(saved)
     </script>
 </body>
 

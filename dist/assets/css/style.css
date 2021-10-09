@@ -1,4 +1,4 @@
-body{
+body {
     font-family: 'Roboto', sans-serif;
 }
 
@@ -9,6 +9,7 @@ body{
     margin-right: auto;
     margin-left: auto;
 }
+
 .row {
     display: -webkit-box;
     display: -ms-flexbox;
@@ -18,14 +19,16 @@ body{
     margin-right: -15px;
     margin-left: -15px;
 }
-.col-sm{
+
+.col-sm {
     position: relative;
     width: 100%;
     min-height: 1px;
     padding-right: 15px;
     padding-left: 15px;
 }
-@media (min-width: 576px){
+
+@media (min-width: 576px) {
     .col-sm {
         -ms-flex-preferred-size: 0;
         flex-basis: 0;
@@ -36,15 +39,17 @@ body{
     }
 }
 
-@media (min-width: 1200px){
+@media (min-width: 1200px) {
     .container {
-        max-width: 1140px;
+        max-width: 96%;
     }
 }
+
 .mt-5, .my-5 {
     margin-top: 3rem!important;
 }
-.btn-edit{
+
+.btn-edit {
     width: 200px;
     padding: 15px;
     color: #fff;
@@ -53,83 +58,46 @@ body{
     font-size: 16px;
     text-align: center;
 }
-.sec-title{
+
+.sec-title {
     width: 100%;
     margin: 1pc 0;
     font-weight: bold;
 }
 
-.item-list{
-    width: 100%;
-    display: grid;
-    grid-template-columns: repeat(5, 20%);
-    max-height: 70vh;
-    overflow: scroll;
-}
 .item-list::-webkit-scrollbar {
     width: 6px;
 }
+
 #info {
-	position: absolute;
-	top: 0px;
-	width: 100%;
-	padding: 10px;
-	box-sizing: border-box;
-	text-align: center;
-	-moz-user-select: none;
-	-webkit-user-select: none;
-	-ms-user-select: none;
-	user-select: none;
-	pointer-events: none;
-	z-index: 1; /* TODO Solve this in HTML */
+    /* position: absolute; */
+    top: 0px;
+    width: 100%;
+    padding: 10px;
+    box-sizing: border-box;
+    text-align: center;
+    -moz-user-select: none;
+    -webkit-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    pointer-events: none;
+    z-index: 1;
+    /* TODO Solve this in HTML */
 }
 
-/* Track */
-.item-list::-webkit-scrollbar-track {
-    background: #f1f1f1; 
-  }
-   
-  /* Handle */
-  .item-list::-webkit-scrollbar-thumb {
-    background: #888; 
-    border-radius: 50px;
-  }
-  
-  /* Handle on hover */
-  .item-list::-webkit-scrollbar-thumb:hover {
-    background: #555; 
-  }
-.item{
-    min-height: 180px;
-    display: inline-block;
-    background-size: cover !important;
-    position: relative;
-    background-position: center !important;
-    margin: 5px;
-    cursor: pointer;
-    border-radius: 6px;
-}
-.item:hover{
-   
-    box-shadow: 0 3px 10px rgb(0 0 0 / 25%);
-}
-.item span{
+.loader {
     position: absolute;
-    bottom: 0px;
-    padding: 10px;
-    background: #ccc;
-    width: 100%;
-}
-.loader{
-    position:absolute; top:0;
-    left:0; right:0; bottom:0;     
-    background:rgba(255,255,255,.8);
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(255, 255, 255, .8);
     /*padding-top:150px;*/
-    padding-top:20px;
-    z-index:99999;
-   }
-   
-   .loader div{
+    padding-top: 20px;
+    z-index: 99999;
+}
+
+.loader div {
     border: 6px solid #f3f3f3;
     border-top: 6px solid #3498db;
     border-radius: 50%;
@@ -142,19 +110,24 @@ body{
     bottom: 0px;
     left: 0px;
     right: 0px;
-   }
-   
-   @keyframes spin {
-       0% { transform: rotate(0deg); }
-       100% { transform: rotate(360deg); }
-   }
-.assetsdropdown{
+}
+
+@keyframes spin {
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+.assetsdropdown {
     text-align: right;
     width: 100%;
     position: relative;
 }
 
-   .dropbtn {
+.dropbtn {
     background-color: #3498DB;
     color: white;
     padding: 10px 20px;
@@ -163,22 +136,25 @@ body{
     cursor: pointer;
     border-radius: 6px;
     box-shadow: 0 3px 10px rgb(0 0 0 / 25%);
-  }
-  
-  /* Dropdown button on hover & focus */
-  .dropbtn:hover, .dropbtn:focus {
+}
+
+/* Dropdown button on hover & focus */
+
+.dropbtn:hover, .dropbtn:focus {
     background-color: #2980B9;
-  }
-  
-  /* The container <div> - needed to position the dropdown content */
-  .dropdown {
+}
+
+/* The container <div> - needed to position the dropdown content */
+
+.dropdown {
     position: relative;
     display: inline-block;
     width: 100%;
-  }
-  
-  /* Dropdown Content (Hidden by Default) */
-  .dropdown-content {
+}
+
+/* Dropdown Content (Hidden by Default) */
+
+.dropdown-content {
     text-align: left;
     display: none;
     position: absolute;
@@ -186,48 +162,302 @@ body{
     left: 0px;
     background-color: #f1f1f1;
     min-width: 160px;
-    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
     z-index: 1;
     padding: 15px;
-  }
-  
-  /* Links inside the dropdown */
-  .dropdown-content a {
+}
+
+/* Links inside the dropdown */
+
+.dropdown-content a {
     color: black;
     padding: 12px 16px;
     text-decoration: none;
     display: block;
-  }
-  
-  /* Change color of dropdown links on hover */
-  .dropdown-content a:hover {background-color: #ddd}
-  
+}
 
+/* Change color of dropdown links on hover */
 
-  /* Show the dropdown menu (use JS to add this class to the .dropdown-content container when the user clicks on the dropdown button) */
-  .show {display:block;}
-  @media (max-width: 576px){
+.dropdown-content a:hover {
+    background-color: #ddd
+}
+
+/* Show the dropdown menu (use JS to add this class to the .dropdown-content container when the user clicks on the dropdown button) */
+
+.show {
+    display: block;
+}
+
+@media (max-width: 576px) {
     .item-list {
         grid-template-columns: repeat(2, 50%);
     }
 }
 
-  /* editor core */
+:root {
+    --toolbar-background: #f5f5f5;
+    --edito-border-color: #dddddd;
+    --theme-color:#3498DB;
+}
+
+/* editor core */
 
 .three-editor {
-    margin: 1em auto;
-    display: flex;
+    width: 100%;
+    display: inline-block;
+    position: relative;
+}
+
+.three-editor .scene-container {
+    margin: 0px auto;
+    display: inline-block;
     flex-direction: column;
     width: 100%;
     height: 80vh;
-    border-radius: 6px;
-    box-shadow: 0 3px 10px rgb(0 0 0 / 25%);
     overflow: hidden;
     min-height: 100px;
-    background: #f0f0f0;
+    border: 2px dashed var(--edito-border-color);
     position: relative;
 }
-.scene-container{
+
+.toolbar {
     width: 100%;
-    height: 80vh;
+    height: 36px;
+    display: inline-block;
+    background: var(--toolbar-background);
+    margin-bottom: 5px;
+    flex-direction: row;
+    padding: 0px 15px;
+    position: relative;
+}
+
+.toolbar > div {
+    cursor: pointer;
+    display: inline-block;
+    width: 36px;
+    height: inherit;
+    font-size: 22px;
+    text-align: center;
+    color: #3a3a3a;
+    text-decoration: none;
+    line-height: 2;
+    margin: 0px 5px;
+    border-radius: 4px;
+    position: relative;
+}
+.toolbar > div:hover,.toolbar > div.active {
+    background: var(--theme-color);
+    color: white;
+}
+.three-editor .scene-layers{
+    width: 20%;
+    min-width: 250px;
+    height: auto;
+    display: none;
+    position: absolute;
+    top: 36px;
+    right: 0px;
+    min-height: 100px;
+    background: #ffff;
+    z-index: 11;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    cursor: default;
+}
+.three-editor .scene-layers.show{display:inline-block;}
+
+.three-editor .scene-layers ul{
+    list-style: none;
+    width: 100%;
+    margin: 5px 0px;
+    padding: 0px 15px;
+}
+.three-editor .scene-layers h4{
+    width: 100%;
+    display: inline-block;
+    padding: 0px 20px;
+    margin: 15px 0px;
+}
+.three-editor .scene-layers ul li{
+    width: 100%;
+    display: inline-block;
+    padding: 8px;
+    margin: 5px 0px;
+    cursor: pointer;
+}
+.three-editor .scene-layers ul li:hover,.three-editor .scene-layers ul li.active{
+    font-weight: 600;
+    color:  var(--theme-color)
+}
+
+
+.pull-right{
+    float: right;
+}
+
+/* toobar hover tootip */
+
+[data-title] {
+    position: relative;
+}
+
+[data-title]:hover::before {
+    content: attr(data-title);
+    z-index: 1;
+    color: #181818;
+    background: #ffffff;
+    padding: 4px 8px;
+    border-radius: 4px;
+    position: absolute;
+    box-shadow: 0px 0px 10px #cccccc;
+    bottom: -36px;
+    white-space: nowrap;
+    font-size: 14px;
+}
+[data-title-right]:hover::before{
+    right: 0px;
+}
+
+.item-list {
+    width: calc(100% - 26px);
+    display: flex;
+    flex-wrap: wrap;
+    grid-template-columns: repeat(5, 20%);
+    max-height: 400px;
+    overflow: scroll;
+    overflow-x: hidden;
+    background: #f5f5f5;
+    margin-top: -5px;
+    border-top: 1px solid #c1c1c1;
+    padding: 0px 8px 8px 8px;
+    position: absolute;
+    left: 20px;
+    z-index: 1;
+    display: none;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+}
+.item-list.show {display:flex;}
+
+.item-list h4 {
+    width: 100%;
+    display: inline-block;
+    margin: 15px 0px;
+    padding: 5px;
+    color: #8f8f8f;
+    font-weight: 400;
+}
+
+/* Track */
+
+.item-list::-webkit-scrollbar-track {
+    background: #f1f1f1;
+}
+
+/* Handle */
+
+.item-list::-webkit-scrollbar-thumb {
+    background: #888;
+    border-radius: 50px;
+}
+
+/* Handle on hover */
+
+.item-list::-webkit-scrollbar-thumb:hover {
+    background: #555;
+}
+
+.item-list .col {
+    flex: 0 0 12.5%;
+    max-width: 12.5%;
+    position: relative;
+    padding: 5px;
+}
+
+.item {
+    min-height: 180px;
+    background-size: cover !important;
+    position: relative;
+    background-position: center !important;
+    cursor: pointer;
+    border-radius: 6px;
+}
+
+.item:hover {
+    box-shadow: 0 3px 10px rgb(0 0 0 / 25%);
+}
+
+.item span {
+    position: absolute;
+    bottom: 0px;
+    padding: 10px;
+    background: #ccc;
+    width: 100%;
+}
+
+/* icons */
+
+@font-face {
+    font-family: "lighteditor";
+    src: url("../fonts/lighteditor.eot");
+    src: url("../fonts/lighteditor.eot?#iefix") format("embedded-opentype"), url("../fonts/lighteditor.woff") format("woff"), url("../fonts/lighteditor.ttf") format("truetype"), url("../fonts/lighteditor.svg#lighteditor") format("svg");
+    font-weight: normal;
+    font-style: normal;
+}
+
+[data-icon]:before {
+    font-family: "lighteditor" !important;
+    content: attr(data-icon);
+    font-style: normal !important;
+    font-weight: normal !important;
+    font-variant: normal !important;
+    text-transform: none !important;
+    speak: none;
+    line-height: 1;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+[class^="icon-"]:before, [class*=" icon-"]:before {
+    font-family: "lighteditor" !important;
+    font-style: normal !important;
+    font-weight: normal !important;
+    font-variant: normal !important;
+    text-transform: none !important;
+    speak: none;
+    line-height: 1;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+.icon-folder-open-o:before {
+    content: "\61";
+  }
+  .icon-move:before {
+    content: "\63";
+  }
+  .icon-rotate:before {
+    content: "\62";
+  }
+  .icon-resize-down:before {
+    content: "\64";
+  }
+  .icon-list-ul:before {
+    content: "\65";
+  }
+  .icon-floppy-o:before {
+    content: "\66";
+  }
+/* .responsive */
+@media (max-width: 480px){
+    .item-list .col{
+        flex: 0 0 50%;
+        max-width: 50%;
+    }
+
+}
+@media (max-width: 768px){
+    .item-list .col{
+        flex: 0 0 25%;
+        max-width: 25%;
+    }
+
 }
