@@ -355,7 +355,9 @@ class LightThreeEditor {
                 Object.assign(currentCamera.scale, { x: Sceneinfo.camera.scale.x, y: Sceneinfo.camera.scale.y, z: Sceneinfo.camera.scale.z })
                 Object.assign( currentCamera.rotation, { x:Sceneinfo.camera.rotation._x, y: Sceneinfo.camera.rotation._y, z: Sceneinfo.camera.rotation._z,order:Sceneinfo.camera.rotation._order })
                  //set(Sceneinfo.camera.x, Sceneinfo.camera.y, Sceneinfo.camera.z);
+                 console.log(scene)
                 control.attach(mesh);
+                control.detach()
                 scene.add(control);            
             }
         })
