@@ -62,7 +62,7 @@ class LightThreeEditor {
 
         manager = new THREE.LoadingManager(this.viewRender);
         const axesHelper = new THREE.AxesHelper(2);
-        scene.add(axesHelper);
+        //scene.add(axesHelper);
 
         orbit = new OrbitControls(currentCamera, renderer.domElement);
         orbit.update();
