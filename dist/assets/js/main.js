@@ -333,6 +333,10 @@ class LightThreeEditor {
             scene.add(control)
             self.viewRender()
         }
+        else{
+            control.detach()
+            self.viewRender()
+        }
     }
     async loadSavedScene(Sceneinfo) {
         if (!Sceneinfo) return false
